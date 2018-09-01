@@ -1,17 +1,19 @@
 import os
-from PythonUtils.file_operation import oshelper_files
+from PythonUtils.file import flatcopy, is_name_unique
+from PythonUtils.folder import recursive_list, create
 import unittest
+import tempfile
 
 class UT_file_ops(unittest.TestCase):
 
     @staticmethod
     def test_recursive_load():
-        file_list = oshelper_files.recursive_list(os.getcwd())
+        file_list = recursive_list(os.getcwd())
         print(file_list)
-        assert len(file_list) > 56 # the current files within the source code
+        assert len(file_list) > 5 # the current files within the source code
 
     @staticmethod
-    def test_copy_files_to_flat_folder():
+    def test_flatcopy():
 
         from pydicom.data import get_testdata_files
         file_list = get_testdata_files("*")
@@ -21,27 +23,19 @@ class UT_file_ops(unittest.TestCase):
         # file_list = recursive_list(path1)
 
         # Output DIR:
-        tmp_folder = os.getcwd()
-        folder_name = "files"
-        folder = os.path.join(tmp_folder, folder_name)
-
-        # Create folder before copying.
-        os.mkdir(folder)
-        oshelper_files.copy_files_to_flat_folder(file_list, folder)
-
-        import shutil
-        # Remove that folder now.
-        shutil.rmtree(folder)
+        with tempfile.TemporaryDirectory() as tmp_folder:
+            flatcopy(file_list, tmp_folder, None)
+            assert(len(os.listdir(tmp_folder)) == 96)
 
     @staticmethod
     def test_uniqueFileIdentifier():
         file = "Test.txt"
         open(file, 'a').close()
-        isUnique, unique_name = oshelper_files.is_name_unique(file)
+        isUnique, unique_name = is_name_unique(file)
         assert not isUnique
         print(unique_name)
         os.remove(file)
-        isUnique, unique_name = oshelper_files.is_name_unique(file)
+        isUnique, unique_name = is_name_unique(file)
         assert isUnique
 
 
