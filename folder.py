@@ -54,15 +54,11 @@ def get_abspath(path: str, levels_above: int):
     :param levels_above:
     :return:
     """
-
-    folder = os.path.dirname(path)
-    assert(os.path.isdir(folder))
     assert levels_above >= 0
 
-    absFilePath:str = os.path.abspath(folder)  # Absolute Path of the module
-    returnPath:str = absFilePath
+    returnPath:str = path
     counter = levels_above
-    print(absFilePath)
+    print(returnPath)
     while counter > 0:
         returnPath = os.path.dirname(returnPath)  # Directory of the Module directory
         counter= counter-1
@@ -71,4 +67,4 @@ def get_abspath(path: str, levels_above: int):
     return returnPath
 
 if __name__ == "__main__":
-    print(get_abspath("C:\ProgramData\Anaconda3\p", 1))
+    print(get_abspath(r"C:\ProgramData\Anaconda3\p\\", 1))
