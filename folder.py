@@ -1,4 +1,6 @@
 import os
+from typing import Union
+
 
 def is_empty(input_folder):
 
@@ -44,3 +46,29 @@ def create(input_folder):
     else:
         raise ValueError
 
+def get_abspath(path: str, levels_above: int):
+    """
+    Thie function takes the path (contain the folder or the file given) given and provide relative path levels up.
+    :type levels_above: object
+    :param path: can be a folde or a path.
+    :param levels_above:
+    :return:
+    """
+
+    folder = os.path.dirname(path)
+    assert(os.path.isdir(folder))
+    assert levels_above >= 0
+
+    absFilePath:str = os.path.abspath(folder)  # Absolute Path of the module
+    returnPath:str = absFilePath
+    counter = levels_above
+    print(absFilePath)
+    while counter > 0:
+        returnPath = os.path.dirname(returnPath)  # Directory of the Module directory
+        counter= counter-1
+        print(returnPath)
+
+    return returnPath
+
+if __name__ == "__main__":
+    print(get_abspath("C:\ProgramData\Anaconda3\p", 1))
