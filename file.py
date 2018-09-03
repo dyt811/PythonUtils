@@ -38,6 +38,11 @@ def flatcopy(file_list, destination_path, check_function):
 
         copyfile(file, destination_path_name)
 
+def unique_name():
+    timestamp = datetime.now().isoformat(sep='T', timespec='auto')
+    name = timestamp.replace(":", "_")
+    return name
+
 def is_name_unique(path):
     """
     Determine if the proposed file exist and suggest alternative name.
