@@ -31,6 +31,23 @@ def recursive_list(root_dicom_path):
             file_list.append(os.path.join(root,filename))
     return file_list
 
+def change(input_folder):
+    """
+    Change into a folder intellgently throw error if needed be.
+    :param input_folder:
+    :return:
+    """
+    if os.path.exists(input_folder) and os.path.isdir(input_folder):
+        os.chdir(input_folder)
+        return
+    elif os.path.exists(input_folder) and os.path.isfile(input_folder):
+        raise ValueError("Input is not a folder path but a file.")
+    elif not os.path.exists(input_folder):
+        os.makedirs(input_folder)
+        os.chdir(input_folder)
+    else:
+        raise ValueError("Unanticipated input")
+
 def create(input_folder):
     """
     Create a folder intellgently throw error if needed be.
