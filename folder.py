@@ -1,6 +1,6 @@
 import os
 from typing import Union
-
+import random
 
 def is_empty(input_folder):
 
@@ -15,11 +15,12 @@ def is_empty(input_folder):
     # must be empty then
     return True
 
+
 def recursive_list(root_dicom_path):
     """
     load all the files, validate and then pass to decompress or anonimize.
     :param root_dicom_path:
-    :return:
+    :return: ABSOLUTE PATH of all files in the folder.
     """
     global file_list
     file_list = []
@@ -30,6 +31,7 @@ def recursive_list(root_dicom_path):
         for filename in filenames:
             file_list.append(os.path.join(root,filename))
     return file_list
+
 
 def change(input_folder):
     """
@@ -48,6 +50,7 @@ def change(input_folder):
     else:
         raise ValueError("Unanticipated input")
 
+
 def create(input_folder):
     """
     Create a folder intellgently throw error if needed be.
@@ -62,6 +65,7 @@ def create(input_folder):
         os.mkdir(input_folder)
     else:
         raise ValueError
+
 
 def get_abspath(path: str, levels_above: int):
     """
@@ -82,6 +86,43 @@ def get_abspath(path: str, levels_above: int):
         print(returnPath)
 
     return returnPath
+
+
+def flatcopy(folder, destination_path, check_function):
+    from file import flatcopy as file_flatcopy
+    filelist = recursive_list(folder)
+    file_flatcopy(filelist, destination_path, None)
+
+
+def random_draw(folder_path, numbers, repeat):
+    """
+    randomly explore a folder and return lists of files from there
+    :param folder_path:
+    :param numbers:
+    :param repeat:
+    :return: a file list of file names with aboslute path.
+    """
+    filelist = []
+
+    total_files = recursive_list(folder_path)
+
+    if repeat:
+        for x in range(1, numbers):
+            index = random.randint(0, len(total_files))
+            filelist.append(total_files[index])
+    else:
+        for x in range(1, numbers):
+            # Escape loop when out of files to choose from and cannot repeat choose.
+            if len(total_files)==0: continue
+
+            # otherwise, randomly sample from the updated total files count
+            index = random.randint(0, len(total_files))
+
+            # and add that items to the filelist after popping it.
+            filelist.append(total_files.pop(index))
+
+    return filelist
+
 
 if __name__ == "__main__":
     print(get_abspath(r"C:\ProgramData\Anaconda3\p\\", 1))
