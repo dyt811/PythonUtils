@@ -4,6 +4,7 @@ import logging
 import shutil
 from tqdm import tqdm
 import sys
+import json
 
 from folder import recursive_list
 
@@ -105,3 +106,21 @@ def duplicates_into_folders(filelist, output_folder, iterations):
 
 def zip_with_name(folder_path, output_filename):
     shutil.make_archive(output_filename, 'zip', folder_path)
+
+def read_json(json_path):
+    """
+    Load JSON and return it as a dictionary.
+    :param json_path:
+    :return:
+    """
+    if not os.path.exists(json_path):
+        return None
+
+    json_file = open(json_path, "r")
+    json_dictionary = json.load(json_file)
+    return json_dictionary
+
+if __name__ == "__main__":
+    json_path = r"C:\Yang\Dropbox\Machine_Learning\Recordings\2018-10-14 14-38-21_274.bmp.ROI.json"
+    json_dictionary = read_json(json_path)
+    print(json_dictionary)
