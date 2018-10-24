@@ -67,7 +67,7 @@ def create(input_folder):
         raise ValueError
 
 
-def get_abspath(path: str, levels_above: int):
+def get_abspath(path, levels_above):
     """
     Thie function takes the path (contain the folder or the file given) given and provide relative path levels up.
     :type levels_above: object
@@ -75,9 +75,9 @@ def get_abspath(path: str, levels_above: int):
     :param levels_above:
     :return:
     """
-    assert levels_above >= 0
+    #assert levels_above >= 0
 
-    returnPath:str = path
+    returnPath = path
     counter = levels_above
     print(returnPath)
     while counter > 0:
