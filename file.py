@@ -5,7 +5,7 @@ import shutil
 from tqdm import tqdm
 import sys
 import json
-
+import inspect
 from folder import recursive_list
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -106,6 +106,23 @@ def duplicates_into_folders(filelist, output_folder, iterations):
 
 def zip_with_name(folder_path, output_filename):
     shutil.make_archive(output_filename, 'zip', folder_path)
+
+def current_funct_name():
+    """
+    Return the current functions' name. Used to allow better snippets generation.
+    Source: https://www.stefaanlippens.net/python_inspect/
+    :return:
+    """
+    return inspect.stack()[1][3]
+
+def parental_funct_name():
+    """
+        Return the current functions' name. Used to allow better snippets generation.
+        Source: https://www.stefaanlippens.net/python_inspect/
+        :return:
+        """
+    return inspect.stack()[2][3]
+
 
 def read_json(json_path):
     """
