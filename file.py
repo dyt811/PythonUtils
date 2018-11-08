@@ -105,6 +105,12 @@ def duplicates_into_folders(filelist, output_folder, iterations):
     return updated_file_list
 
 def zip_with_name(folder_path, output_filename):
+    """
+    Take in a folder, and zip to a file.
+    :param folder_path:
+    :param output_filename:
+    :return:
+    """
     shutil.make_archive(output_filename, 'zip', folder_path)
 
 def current_funct_name():
@@ -136,6 +142,19 @@ def read_json(json_path):
     json_file = open(json_path, "r")
     json_dictionary = json.load(json_file)
     return json_dictionary
+
+def dictionary_search(dictionary, target_value):
+    """
+    Quick and dirty search in the Dictionary for desired partial match of the TARGET_VALUE within ANY of the value within the DICTIONARY
+    :param dictionary:
+    :param target_value:
+    :return: the key that contain the target_value from within the dictionary
+    """
+    for key_value_pair in dictionary:
+        for current_value in dictionary[key_value_pair]:
+            if target_value in current_value:
+                return key_value_pair
+    return None
 
 if __name__ == "__main__":
     json_path = r"C:\Yang\Dropbox\Machine_Learning\Recordings\2018-10-14 14-38-21_274.bmp.ROI.json"
