@@ -7,7 +7,7 @@ import sys
 import json
 import inspect
 from folder import recursive_list
-
+from dotenv import load_dotenv
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -155,6 +155,16 @@ def dictionary_search(dictionary, target_value):
             if target_value in current_value:
                 return key_value_pair
     return None
+
+def load_dotenv_var(variable_name: str):
+    """
+    A wrapper for load dot env
+    :param variable_name:
+    :return:
+    """
+    load_dotenv()
+    return os.getenv(variable_name)
+
 
 if __name__ == "__main__":
     json_path = r"C:\Yang\Dropbox\Machine_Learning\Recordings\2018-10-14 14-38-21_274.bmp.ROI.json"
