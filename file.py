@@ -156,14 +156,6 @@ def dictionary_search(dictionary, target_value):
                 return key_value_pair
     return None
 
-def load_dotenv_var(variable_name: str):
-    """
-    A wrapper for load dot env
-    :param variable_name:
-    :return:
-    """
-    load_dotenv()
-    return os.getenv(variable_name)
 
 
 if __name__ == "__main__":
