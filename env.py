@@ -14,7 +14,7 @@ def validate_dotenv_var(variable_name: str, possible_variables: list):
     else:
         return False
 
-def load_validate_dotenv(variable_name: str):
+def load_dotenv_var(variable_name: str):
     """
     A wrapper for the load_DotENV function from the Python .Env framework
     :param variable_name:
@@ -34,7 +34,7 @@ def load_validate_dotenv(variable_name: str, possible_variables: list):
     :return:
     """
     if validate_dotenv_var(variable_name, possible_variables):
-        env_variable =  load_validate_dotenv(variable_name)
+        env_variable = load_dotenv_var(variable_name)
         return env_variable
     else:
         raise ValueError("The variable name provided: " + variable_name + " is NOT a sanctioned variable as defined by the schema")
