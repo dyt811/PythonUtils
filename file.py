@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 def filelist_delete(file_list):
     """
     Batch delete of files when handed a list, no confirmation.
@@ -56,10 +57,12 @@ def flatcopy(file_list, destination_path, check_function):
 
         copyfile(file, destination_path_name)
 
+
 def unique_name():
     timestamp = datetime.now().isoformat(sep='T', timespec='auto')
     name = timestamp.replace(":", "_")
     return name
+
 
 def is_name_unique(path):
     """
@@ -76,6 +79,7 @@ def is_name_unique(path):
         return False, file + "_" + timestamp + "_" + ext
     else:
         return True, path
+
 
 def duplicates_into_folders(filelist, output_folder, iterations):
     """
@@ -104,6 +108,7 @@ def duplicates_into_folders(filelist, output_folder, iterations):
 
     return updated_file_list
 
+
 def zip_with_name(folder_path, output_filename):
     """
     Take in a folder, and zip to a file.
@@ -113,6 +118,7 @@ def zip_with_name(folder_path, output_filename):
     """
     shutil.make_archive(output_filename, 'zip', folder_path)
 
+
 def current_funct_name():
     """
     Return the current functions' name. Used to allow better snippets generation.
@@ -120,6 +126,7 @@ def current_funct_name():
     :return:
     """
     return inspect.stack()[1][3]
+
 
 def parental_funct_name():
     """
@@ -143,6 +150,7 @@ def read_json(json_path):
     json_dictionary = json.load(json_file)
     return json_dictionary
 
+
 def dictionary_search(dictionary, target_value):
     """
     Quick and dirty search in the Dictionary for desired partial match of the TARGET_VALUE within ANY of the value within the DICTIONARY
@@ -155,7 +163,6 @@ def dictionary_search(dictionary, target_value):
             if target_value in current_value:
                 return key_value_pair
     return None
-
 
 
 if __name__ == "__main__":
