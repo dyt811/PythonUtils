@@ -1,6 +1,7 @@
 import os
 from typing import Union
 import random
+import re
 
 def is_empty(input_folder):
 
@@ -15,10 +16,30 @@ def is_empty(input_folder):
     # must be empty then
     return True
 
+def recursive_list_re(root_dicom_path: str, re_pattern: str):
+    """
+    load all the files, validate them against a regular expression in the FILE NAME and then pass it on as a file list.
+    :param root_dicom_path:
+    :return: ABSOLUTE PATH of all files in the folder.
+    """
+    global file_list
+    file_list = []
+
+    for root, directories, filenames in os.walk(root_dicom_path):
+        for filename in filenames:
+            # Compile the regular expression provided.
+            pattern = re.compile(re_pattern)
+            found = pattern.search(filename)
+
+            # When any match is found
+            if found is not None:
+                file_list.append(os.path.join(root,filename))
+    return file_list
+
 
 def recursive_list(root_dicom_path):
     """
-    load all the files, validate and then pass to decompress or anonimize.
+    load all the files, return a filelist with FULL PATH
     :param root_dicom_path:
     :return: ABSOLUTE PATH of all files in the folder.
     """
