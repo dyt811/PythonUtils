@@ -1,7 +1,7 @@
 import os
-from datetime import datetime
 import logging
 import shutil
+from datetime import datetime
 from tqdm import tqdm
 import sys
 import json
@@ -59,6 +59,7 @@ def flatcopy(file_list, destination_path, check_function):
 
 
 def unique_name():
+
     timestamp = datetime.now().isoformat(sep='T', timespec='auto')
     name = timestamp.replace(":", "_")
     return name
@@ -71,12 +72,10 @@ def is_name_unique(path):
     :return:
     """
     if os.path.exists(path):
-        timestamp = datetime.datetime.now().isoformat()
-        timestamp = timestamp.replace(':', '')  # Remove : which are not compatible with string
 
         file, ext = os.path.splitext(path)
 
-        return False, file + "_" + timestamp + "_" + ext
+        return False, file + "_" + unique_name() + "_" + ext
     else:
         return True, path
 
