@@ -1,6 +1,13 @@
 from dotenv import load_dotenv
 import os
 
+def is_travis():
+    """
+    Detect if current environment is travis. Mainly used to disable underiable unit tests which cannot run on Travis (i.e. private database access)
+    :return:
+    """
+    is_travis_in_OS_env = 'TRAVIS' in os.environ
+    return is_travis_in_OS_env
 
 def validate_dotenv_var(variable_name: str, possible_variables: list):
     """

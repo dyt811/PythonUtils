@@ -6,7 +6,7 @@ from tqdm import tqdm
 import sys
 import json
 import inspect
-from folder import recursive_list
+from PythonUtils.folder import recursive_list
 from dotenv import load_dotenv
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -20,8 +20,6 @@ def filelist_delete(file_list):
     """
     for file in tqdm(file_list):
         os.remove(file)
-
-
 
 
 def flatcopy(file_list, destination_path, check_function):
@@ -125,6 +123,15 @@ def current_funct_name():
     :return:
     """
     return inspect.stack()[1][3]
+
+def full_file_path(file):
+    """
+    When given a file reference, it will tell you its full path.
+    :param file:
+    :return:
+    """
+    dir_path = os.path.dirname(os.path.realpath(file))
+    return dir_path
 
 
 def parental_funct_name():

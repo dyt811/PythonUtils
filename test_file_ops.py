@@ -1,5 +1,5 @@
 import os
-from PythonUtils.file import flatcopy, is_name_unique
+from PythonUtils.file import flatcopy, is_name_unique, full_file_path
 from PythonUtils.folder import recursive_list, create
 import unittest
 import tempfile
@@ -8,9 +8,10 @@ class UT_file_ops(unittest.TestCase):
 
     @staticmethod
     def test_recursive_load():
-        file_list = recursive_list(os.getcwd())
+        path = full_file_path(__file__)
+        file_list = recursive_list(path)
         print(file_list)
-        assert len(file_list) > 5 # the current files within the source code
+        assert len(file_list) > 5 # the current files within the source code, it has at least 6 files in PythonUtils.
 
     @staticmethod
     def test_flatcopy():
