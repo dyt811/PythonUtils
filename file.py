@@ -7,7 +7,6 @@ import sys
 import json
 import inspect
 from PythonUtils.folder import recursive_list
-from dotenv import load_dotenv
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger(__name__)
 

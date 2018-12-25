@@ -83,7 +83,7 @@ def create(input_folder):
     elif os.path.exists(input_folder) and not is_empty(input_folder):
         raise ValueError("Folder exist and not empty!")
     elif not os.path.exists(input_folder):
-        os.mkdir(input_folder)
+        os.makedirs(input_folder)
     else:
         raise ValueError
 
@@ -97,10 +97,19 @@ def get_abspath(path, levels_above):
     :return:
     """
     #assert levels_above >= 0
+    if os.path.isfile(path):
+        # since it is a FILE, dirname will only return the CURRENT dir of containing the file. Hence needs to increase the counter.
+        levels_above = levels_above + 1
+    elif os.path.isdir(path):
+        # since it is a FOLDER, no need to look up furhter.
+        pass
 
     returnPath = path
+
     counter = levels_above
+
     print(returnPath)
+
     while counter > 0:
         returnPath = os.path.dirname(returnPath)  # Directory of the Module directory
         counter= counter-1
