@@ -6,7 +6,7 @@ from tqdm import tqdm
 import sys
 import json
 import inspect
-from PythonUtils.folder import recursive_list
+
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -85,7 +85,7 @@ def duplicates_into_folders(filelist, output_folder, iterations):
     :param iterations:
     :return:
     """
-
+    from folder import recursive_list
     logger.info("Duplication files for " + str(iterations) + " iteraitons.")
     # Duplicate the folder x times
     for x in range(0, iterations):
