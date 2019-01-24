@@ -152,7 +152,7 @@ def read_json(json_path):
         return None
 
     json_file = open(json_path, "r")
-    json_dictionary = json.load(json_file)
+    json_dictionary = json.loads(json_file)
     return json_dictionary
 
 
