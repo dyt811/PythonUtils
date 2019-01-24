@@ -29,7 +29,7 @@ def flatcopy(file_list, destination_path, check_function):
     :param check_function: the function used to validate every single file.
     """
     logger = logging.getLogger(__name__)
-    logger.info("Copying checking and checking files to destination: " + destination_path)
+    logger.info(f"Copying checking and checking files to destination: {destination_path}")
 
     from shutil import copyfile
 
@@ -72,7 +72,7 @@ def is_name_unique(path):
 
         file, ext = os.path.splitext(path)
 
-        return False, file + "_" + unique_name() + "_" + ext
+        return False, f"{file}_{unique_name()}_{ext}"
     else:
         return True, path
 
@@ -86,13 +86,13 @@ def duplicates_into_folders(filelist, output_folder, iterations):
     :return:
     """
     from folder import recursive_list
-    logger.info("Duplication files for " + str(iterations) + " iteraitons.")
+    logger.info(f"Duplication files for {str(iterations)} iteraitons.")
     # Duplicate the folder x times
     for x in range(0, iterations):
         # each time, duplicate all the files within it
         for file in tqdm(filelist):
             # Make sure to assign UNIQUE name.
-            new_file_name = os.path.join(output_folder, unique_name() + ".png")
+            new_file_name = os.path.join(output_folder, f"{unique_name()}.png")
             shutil.copyfile(file, new_file_name)
 
     # Make DIR if it does not already exist.

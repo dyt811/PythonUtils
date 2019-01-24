@@ -44,4 +44,4 @@ def load_validate_dotenv(variable_name: str, possible_variables: list):
         env_variable = load_dotenv_var(variable_name)
         return env_variable
     else:
-        raise ValueError("The variable name provided: " + variable_name + " is NOT a sanctioned variable as defined by the schema")
+        raise ValueError(f"The variable name provided: {variable_name } is NOT a sanctioned variable as defined by the schema")
