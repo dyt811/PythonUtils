@@ -29,7 +29,7 @@ def flatcopy(file_list, destination_path, check_function):
     :param check_function: the function used to validate every single file.
     """
     logger = logging.getLogger(__name__)
-    logger.info(f"Copying checking and checking files to destination: {destination_path}")
+    logger.debug(f"Copying checking and checking files to destination: {destination_path}")
 
     from shutil import copyfile
 
@@ -86,7 +86,7 @@ def duplicates_into_folders(filelist, output_folder, iterations):
     :return:
     """
     from folder import recursive_list
-    logger.info(f"Duplication files for {str(iterations)} iteraitons.")
+    logger.debug(f"Duplication files for {str(iterations)} iteraitons.")
     # Duplicate the folder x times
     for x in range(0, iterations):
         # each time, duplicate all the files within it
