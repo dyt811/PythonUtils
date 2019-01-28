@@ -1,5 +1,5 @@
 import os
-from typing import Union
+from typing import List
 import random
 import re
 
@@ -37,7 +37,7 @@ def recursive_list_re(root_dicom_path: str, re_pattern: str):
     return file_list
 
 
-def recursive_list(root_dicom_path):
+def recursive_list(root_dicom_path: str) -> List[str]:
     """
     load all the files, return a filelist with FULL PATH
     :param root_dicom_path:
