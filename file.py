@@ -17,7 +17,7 @@ def filelist_delete(file_list):
     :param file_list:
     :return:
     """
-    for file in tqdm(file_list):
+    for file in tqdm(file_list, position=0):
         os.remove(file)
 
 
@@ -33,7 +33,7 @@ def flatcopy(file_list, destination_path, check_function):
 
     from shutil import copyfile
 
-    for file in tqdm(file_list):
+    for file in tqdm(file_list, position=0):
 
         # find if the file is DICOM, if not, skip this file.
         if check_function is not None:
@@ -90,7 +90,7 @@ def duplicates_into_folders(filelist, output_folder, iterations):
     # Duplicate the folder x times
     for x in range(0, iterations):
         # each time, duplicate all the files within it
-        for file in tqdm(filelist):
+        for file in tqdm(filelist, position=0):
             # Make sure to assign UNIQUE name.
             new_file_name = os.path.join(output_folder, f"{unique_name()}.png")
             shutil.copyfile(file, new_file_name)
