@@ -8,7 +8,7 @@ import json
 import inspect
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
 
 
 def filelist_delete(file_list):
@@ -28,7 +28,7 @@ def flatcopy(file_list, destination_path, check_function):
     :param destination_path:
     :param check_function: the function used to validate every single file.
     """
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger()
     logger.debug(f"Copying checking and checking files to destination: {destination_path}")
 
     from shutil import copyfile
