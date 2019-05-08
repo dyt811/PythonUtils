@@ -1,10 +1,4 @@
-import os
 import logging
-import shutil
-from datetime import datetime
-from tqdm import tqdm
-import sys
-import json
 import inspect
 
 
@@ -17,8 +11,9 @@ def filelist_delete(file_list):
     :param file_list:
     :return:
     """
-    for file in tqdm(file_list, position=0):
-        os.remove(file)
+    from PUFile import filelist_delete as alias
+
+    alias(file_list)
 
 
 def flatcopy(file_list, destination_path, check_function):
@@ -28,38 +23,15 @@ def flatcopy(file_list, destination_path, check_function):
     :param destination_path:
     :param check_function: the function used to validate every single file.
     """
-    logger = logging.getLogger()
-    logger.debug(f"Copying checking and checking files to destination: {destination_path}")
+    from PUFile import flatcopy as alias
 
-    from shutil import copyfile
-
-    for file in tqdm(file_list, position=0):
-
-        # find if the file is DICOM, if not, skip this file.
-        if check_function is not None:
-            check_passes, _ = check_function(file)
-            if not check_passes:
-                continue
-
-        # get the final path name.
-        file_name = os.path.basename(file)
-        destination_path_name = os.path.join(destination_path, file_name)
-
-        # check if the final path is unique.
-        is_unique, new_name = is_name_unique(destination_path_name)
-
-        # append date time microsecond string if the file is not unique.
-        if not is_unique:
-            destination_path_name = new_name
-
-        copyfile(file, destination_path_name)
+    alias(file_list, destination_path, check_function)
 
 
 def unique_name():
+    from PUFile import unique_name as alias
 
-    timestamp = datetime.now().isoformat(sep='T', timespec='auto')
-    name = timestamp.replace(":", "_")
-    return name
+    return alias()
 
 
 def is_name_unique(path):
@@ -68,13 +40,9 @@ def is_name_unique(path):
     :param path:
     :return:
     """
-    if os.path.exists(path):
+    from PUFile import is_name_unique as alias
 
-        file, ext = os.path.splitext(path)
-
-        return False, f"{file}_{unique_name()}_{ext}"
-    else:
-        return True, path
+    return alias(path)
 
 
 def duplicates_into_folders(filelist, output_folder, iterations):
@@ -85,24 +53,9 @@ def duplicates_into_folders(filelist, output_folder, iterations):
     :param iterations:
     :return:
     """
-    from folder import recursive_list
-    logger.debug(f"Duplication files for {str(iterations)} iteraitons.")
-    # Duplicate the folder x times
-    for x in range(0, iterations):
-        # each time, duplicate all the files within it
-        for file in tqdm(filelist, position=0):
-            # Make sure to assign UNIQUE name.
-            new_file_name = os.path.join(output_folder, f"{unique_name()}.png")
-            shutil.copyfile(file, new_file_name)
+    from PUFile import duplicates_into_folders as alias
 
-    # Make DIR if it does not already exist.
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
-    # Recursively list the output folder
-    updated_file_list = recursive_list(output_folder)
-
-    return updated_file_list
+    alias(filelist, output_folder, iterations)
 
 
 def zip_with_name(folder_path, output_filename):
@@ -112,7 +65,9 @@ def zip_with_name(folder_path, output_filename):
     :param output_filename:
     :return:
     """
-    shutil.make_archive(output_filename, 'zip', folder_path)
+    from PUFile import zip_with_name as alias
+
+    alias(folder_path, output_filename)
 
 
 def current_funct_name():
@@ -123,14 +78,16 @@ def current_funct_name():
     """
     return inspect.stack()[1][3]
 
+
 def full_file_path(file):
     """
     When given a file reference, it will tell you its full path.
     :param file:
     :return:
     """
-    dir_path = os.path.dirname(os.path.realpath(file))
-    return dir_path
+    from PUFile import full_file_path
+
+    return full_file_path(file)
 
 
 def parental_funct_name():
@@ -148,12 +105,9 @@ def read_json(json_path):
     :param json_path:
     :return:
     """
-    if not os.path.exists(json_path):
-        return None
+    from PUFile import read_json as alias
 
-    json_file = open(json_path, "r")
-    json_dictionary = json.loads(json_file)
-    return json_dictionary
+    return alias(json_path)
 
 
 def dictionary_search(dictionary, target_value):
@@ -163,11 +117,9 @@ def dictionary_search(dictionary, target_value):
     :param target_value:
     :return: the key that contain the target_value from within the dictionary
     """
-    for key_value_pair in dictionary:
-        for current_value in dictionary[key_value_pair]:
-            if target_value in current_value:
-                return key_value_pair
-    return None
+    from PUFile import dictionary_search as alias
+
+    return alias(dictionary, target_value)
 
 
 if __name__ == "__main__":
