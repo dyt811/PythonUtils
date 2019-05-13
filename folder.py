@@ -3,6 +3,7 @@ from typing import List
 import random
 import re
 
+
 def is_empty(input_folder):
 
     # when folder does not exist
@@ -15,6 +16,7 @@ def is_empty(input_folder):
 
     # must be empty then
     return True
+
 
 def recursive_list_re(root_dicom_path: str, re_pattern: str):
     """
@@ -33,7 +35,7 @@ def recursive_list_re(root_dicom_path: str, re_pattern: str):
 
             # When any match is found
             if found is not None:
-                file_list.append(os.path.join(root,filename))
+                file_list.append(os.path.join(root, filename))
     return file_list
 
 
@@ -47,10 +49,10 @@ def recursive_list(root_dicom_path: str) -> List[str]:
     file_list = []
 
     for root, directories, filenames in os.walk(root_dicom_path):
-        #for directory in directories:
-            #file_list.append(os.path.join(root, directory))
+        # for directory in directories:
+        # file_list.append(os.path.join(root, directory))
         for filename in filenames:
-            file_list.append(os.path.join(root,filename))
+            file_list.append(os.path.join(root, filename))
     return file_list
 
 
@@ -96,7 +98,7 @@ def get_abspath(path, levels_above):
     :param levels_above:
     :return:
     """
-    #assert levels_above >= 0
+    # assert levels_above >= 0
     if os.path.isfile(path):
         # since it is a FILE, dirname will only return the CURRENT dir of containing the file. Hence needs to increase the counter.
         levels_above = levels_above + 1
@@ -112,7 +114,7 @@ def get_abspath(path, levels_above):
 
     while counter > 0:
         returnPath = os.path.dirname(returnPath)  # Directory of the Module directory
-        counter= counter-1
+        counter = counter - 1
         print(returnPath)
 
     return returnPath
@@ -120,6 +122,7 @@ def get_abspath(path, levels_above):
 
 def flatcopy(folder, destination_path, check_function):
     from file import flatcopy as file_flatcopy
+
     filelist = recursive_list(folder)
     file_flatcopy(filelist, destination_path, None)
 
@@ -143,7 +146,8 @@ def random_draw(folder_path, numbers, repeat):
     else:
         for x in range(1, numbers):
             # Escape loop when out of files to choose from and cannot repeat choose.
-            if len(total_files)==0: continue
+            if len(total_files) == 0:
+                continue
 
             # otherwise, randomly sample from the updated total files count
             index = random.randint(0, len(total_files))

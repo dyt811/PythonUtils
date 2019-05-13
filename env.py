@@ -1,13 +1,15 @@
 from dotenv import load_dotenv
 import os
 
+
 def is_travis():
     """
     Detect if current environment is travis. Mainly used to disable underiable unit tests which cannot run on Travis (i.e. private database access)
     :return:
     """
-    is_travis_in_OS_env = 'TRAVIS' in os.environ
+    is_travis_in_OS_env = "TRAVIS" in os.environ
     return is_travis_in_OS_env
+
 
 def validate_dotenv_var(variable_name: str, possible_variables: list):
     """
@@ -21,6 +23,7 @@ def validate_dotenv_var(variable_name: str, possible_variables: list):
     else:
         return False
 
+
 def load_dotenv_var(variable_name: str):
     """
     A wrapper for the load_DotENV function from the Python .Env framework
@@ -30,8 +33,11 @@ def load_dotenv_var(variable_name: str):
 
     success = load_dotenv()
     if not success:
-        raise ImportError("Credential .env NOT FOUND! Please ensure .env is set with all the necessary credentials!")
+        raise ImportError(
+            "Credential .env NOT FOUND! Please ensure .env is set with all the necessary credentials!"
+        )
     return os.getenv(variable_name)
+
 
 def load_validate_dotenv(variable_name: str, possible_variables: list):
     """
@@ -44,4 +50,6 @@ def load_validate_dotenv(variable_name: str, possible_variables: list):
         env_variable = load_dotenv_var(variable_name)
         return env_variable
     else:
-        raise ValueError(f"The variable name provided: {variable_name } is NOT a sanctioned variable as defined by the schema")
+        raise ValueError(
+            f"The variable name provided: {variable_name } is NOT a sanctioned variable as defined by the schema"
+        )

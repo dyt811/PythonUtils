@@ -13,7 +13,6 @@ def int_incrementor(input_string: str):
     is_numerical = input_string.isnumeric()
     is_digit = input_string.isdigit()
 
-
     if is_digit and is_digit:
         number = int(input_string)
         incremented_number = number + 1
@@ -21,9 +20,12 @@ def int_incrementor(input_string: str):
         if len(input_string) == len(incremented_number_string):
             return incremented_number_string.zfill(numerical_length)
         else:
-            raise ValueError("Incrementor increased the value beyond original string length!")
+            raise ValueError(
+                "Incrementor increased the value beyond original string length!"
+            )
 
     raise ValueError("Unhandled input conditions to int_incrementor")
+
 
 if __name__ == "__main__":
     assert int_incrementor("0301") == "0302"
