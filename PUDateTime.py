@@ -25,7 +25,17 @@ def tstr2iso(input_string: str) -> datetime:
     Convert a specific type of ISO string that are compliant with file pathing requirement to ISO datetime.
     :return:
     """
-    iso_datetime = datetime.strptime(input_string, "%Y-%m-%dT%H:%M:%S")
+    no_colon_input_string = input_string.replace(":", "")
+    iso_datetime = tstr2iso_nocolon(no_colon_input_string)
+    return iso_datetime
+
+
+def tstr2iso_nocolon(input_string: str) -> datetime:
+    """
+    Convert a specific type of ISO string that are compliant with file pathing requirement to ISO datetime.
+    :return:
+    """
+    iso_datetime = datetime.strptime(input_string, "%Y-%m-%dT%H%M%S")
     return iso_datetime
 
 
