@@ -1,4 +1,20 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+
+
+def datetime_increment(
+    datetime_input: datetime, number_of_unit_hours_increment: int, unit_hours: int = 1
+):
+    """
+    Dedicated function to compute the time offset.
+    :param current_date:
+    :param format:
+    :return:
+    """
+    datetime_offsetted = datetime_input + number_of_unit_hours_increment * timedelta(
+        hours=unit_hours
+    )
+
+    return datetime_offsetted
 
 
 def iso2str(input_datetime: datetime) -> str:
@@ -47,3 +63,7 @@ def iso2tstr(input_datetime: datetime) -> str:
     iso_datetime_string_cleaned = iso2str(input_datetime)
     iso_datetime_string_t_replaced = iso_datetime_string_cleaned.replace("T", " ")
     return iso_datetime_string_t_replaced
+
+
+if __name__ == "__main__":
+    print(datetime_increment(datetime.now(), 5))
