@@ -11,6 +11,14 @@ def is_travis():
     return is_travis_in_OS_env
 
 
+def get_travis_setting(variable_name: str) -> str:
+    """
+    A function attempt to DIRECTLY access TravisEVN variable mostly used for CI purposes.
+    :return:
+    """
+    return os.getenv(variable_name)
+
+
 def validate_dotenv_var(variable_name: str, possible_variables: list):
     """
     Validate to see if the variable is in the list of the valid variable provided.
