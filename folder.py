@@ -83,7 +83,7 @@ def create(input_folder):
     if os.path.exists(input_folder) and is_empty(input_folder):
         return
     elif os.path.exists(input_folder) and not is_empty(input_folder):
-        raise ValueError("Folder exist and not empty!")
+        raise ValueError(f"Folder {input_folder} exist and not empty, deal with it!")
     elif not os.path.exists(input_folder):
         os.makedirs(input_folder)
     else:
