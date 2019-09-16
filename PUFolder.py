@@ -90,6 +90,14 @@ def create(input_folder):
     else:
         raise ValueError
 
+def create_batch(list_path_folders: List[Path] or List[str]):
+    """
+    Simple batch wrapper for
+    :param list_path_folders:
+    :return:
+    """
+    for folder in list_path_folders:
+        create(folder)
 
 def get_abspath(path, levels_above):
     """
