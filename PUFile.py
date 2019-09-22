@@ -3,10 +3,9 @@ import logging
 import shutil
 from datetime import datetime
 from tqdm import tqdm
-import sys
-import json
 import inspect
 
+from PUJson import read_json
 
 logger = logging.getLogger()
 
@@ -144,20 +143,6 @@ def parental_funct_name():
         :return:
         """
     return inspect.stack()[2][3]
-
-
-def read_json(json_path):
-    """
-    Load JSON and return it as a dictionary.
-    :param json_path:
-    :return:
-    """
-    if not os.path.exists(json_path):
-        return None
-
-    json_file = open(json_path, "r")
-    json_dictionary = json.loads(json_file)
-    return json_dictionary
 
 
 def dictionary_search(dictionary, target_value):

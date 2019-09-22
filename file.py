@@ -105,7 +105,7 @@ def read_json(json_path):
     :param json_path:
     :return:
     """
-    from PUFile import read_json as alias
+    from PUJson import read_json as alias
 
     return alias(json_path)
 

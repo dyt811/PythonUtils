@@ -131,7 +131,7 @@ def get_abspath(path, levels_above):
     return returnPath
 
 
-def flatcopy(folder, destination_path, check_function):
+def flatcopy(folder, destination_path):
     from file import flatcopy as file_flatcopy
 
     filelist = recursive_list(folder)
