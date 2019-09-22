@@ -1,6 +1,6 @@
 import os
-from PythonUtils.file import flatcopy, is_name_unique, full_file_path
-from PythonUtils.folder import recursive_list, create
+from PythonUtils.PUFile import flatcopy, is_name_unique, full_file_path
+from PythonUtils.PUFolder import recursive_list, create
 import unittest
 import tempfile
 
