@@ -2,7 +2,7 @@ import os
 from typing import List
 import random
 import re
-
+import shutil
 
 def is_empty(input_folder):
 
@@ -74,7 +74,7 @@ def change(input_folder):
         raise ValueError("Unanticipated input")
 
 
-def create(input_folder):
+def create(input_folder, nuke_it = False, really_nuke_it = False):
     """
     Create a folder intellgently throw error if needed be.
     :param input_folder:
@@ -82,8 +82,12 @@ def create(input_folder):
     """
     if os.path.exists(input_folder) and is_empty(input_folder):
         return
-    elif os.path.exists(input_folder) and not is_empty(input_folder):
-        raise ValueError(f"Folder {input_folder} exist and not empty, deal with it!")
+    elif os.path.exists(input_folder) and not is_empty(input_folder) and nuke_it is False:
+        raise ValueError(f"Folder {input_folder} exist and not empty, since you didn't want to nuke it, you go deal with it!")
+    elif os.path.exists(input_folder) and not is_empty(input_folder) and nuke_it and really_nuke_it:
+        print("NUKING THAT DIRECTORY!!")
+        shutil.rmtree(input_folder, ignore_errors=True)
+        os.makedirs(input_folder)
     elif not os.path.exists(input_folder):
         os.makedirs(input_folder)
     else:
