@@ -8,6 +8,7 @@ def filter_check_element(string):
     :param string:
     :return:
     """
+
     def check_element(element_template):
         """
         Inner check function.
@@ -15,6 +16,7 @@ def filter_check_element(string):
         :return:
         """
         return string.lower() in element_template.lower()
+
     return check_element
 
 
@@ -29,8 +31,6 @@ def filter_list_str(list_input: List[str], str_input: str) -> List[str]:
 
     return list(filter(filter_str_input, list_input))
 
+
 if __name__ == "__main__":
-    print(filter_list_str(['nic', 'ice', 'din', 'sick'], 'ic'))
-
-
-
+    print(filter_list_str(["nic", "ice", "din", "sick"], "ic"))

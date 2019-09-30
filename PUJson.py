@@ -1,6 +1,7 @@
 import json
 import os
 
+
 def write_json(path_json, dictionary):
     """
     A generic JSOn writing function with file exist check.
@@ -10,7 +11,7 @@ def write_json(path_json, dictionary):
     """
     if os.path.exists(path_json):
         raise FileExistsError(f"{path_json}")
-    with open(path_json, 'w') as outfile:
+    with open(path_json, "w") as outfile:
         json.dump(dictionary, outfile)
 
 
