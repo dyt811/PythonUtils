@@ -5,7 +5,7 @@ from collections import namedtuple
 # This is a specialized module to make it less PITA.
 
 
-class RLE:  # Rune Length Encoding
+class RLE_decoding:  # Rune Length Encoding
     def __init__(
         self,
         order: List[int],
@@ -15,7 +15,7 @@ class RLE:  # Rune Length Encoding
         y_encoded_first=True,
     ):
         """
-        Establish the assumption before encoding and decoding.
+        Establish the assumption before decoding.
         :param order: the Nth pixel count.
         :param length: the number of pixels to include (inclusive both ends)
         :param x_max: max x values (items per row)
@@ -33,7 +33,7 @@ class RLE:  # Rune Length Encoding
 
     def decode(self) -> List[tuple]:
         """
-        Decode a list of order length pixel style marker to the more human list of x y coordinate
+        Decode a list of order length pixel style marker to the more humane list of x y coordinate
         :param list_orderlength:a list of pixel order (n-th pixel) and length of the commit
         :return: list of tuple(x,y)
         """
@@ -73,5 +73,5 @@ class RLE:  # Rune Length Encoding
 
 
 if __name__ == "__main__":
-    alpha = RLE([255, 1231], [5, 12])
+    alpha = RLE_decoding([255, 1231], [5, 12])
     print(alpha.decode())
