@@ -20,7 +20,7 @@ def is_empty(input_folder):
     return True
 
 
-def recursive_list_re(root_dicom_path: str, re_pattern: str):
+def recursive_list_re(root_dicom_path: str or Path, re_pattern: str):
     """
     load all the files, validate them against a regular expression in the FILE NAME and then pass it on as a file list.
     :param root_dicom_path:
