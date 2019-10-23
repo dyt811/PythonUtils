@@ -1,19 +1,18 @@
 from typing import List
 import numpy as np
-import cv2
 from collections import namedtuple
 
 # Run Length Decoding.
 # This is a specialized module to make it less PITA.
-
+#
 
 class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
     def __init__(
         self,
-        mask: np.array, # a 2d nmumpy matrix array
-        mask_value=1, # default assume the mask is 0 for background and 1 for mask value.
+        mask: np.array,  # a 2d nmumpy matrix array
+        mask_value=1,  # default assume the mask is 0 for background and 1 for mask value.
         background_value=0,  # default assume the mask is 0 for background and 1 for mask value.
-        mask_value_higher = True
+        mask_value_higher=True
     ):
         """
         Establish the assumption before encoding.
@@ -31,8 +30,15 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
 
         self.list_order = []
         self.list_length = []
+        self.list_order_length = []
         self.encode()
-        print(list(zip(self.list_order, self.list_length)))
+
+    def get(self):
+        """
+        Return the List of Order Length
+        :return:
+        """
+        return self.list_order_length
 
     def encode(self):
         """
@@ -49,11 +55,11 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
 
         # Do check a few simple assumptions about values.
         if self.mask_value_higher:
-            assert max(mask_1d) == self.mask_value
+            assert max(mask_1d) <= self.mask_value
             assert min(mask_1d) == self.background_value
         else:
             assert max(mask_1d) == self.background_value
-            assert min(mask_1d) == self.mask_value
+            assert min(mask_1d) >= self.mask_value
 
         # Append 0 to both end to accommodate the upcoming shift.
         mask_1d_padded_both = np.concatenate([[self.background_value], mask_1d, [self.background_value]])
@@ -87,6 +93,8 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
             # Length is the differences between where 0 starts and where proceeding 0 starts.
             length = boundaries_background[index] - element
             self.list_length.append(length)
+
+            self.list_order_length.append((run, length))
 
 if __name__ == "__main__":
     alpha = RLE_encoding(np.array([1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0]))
