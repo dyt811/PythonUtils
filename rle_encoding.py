@@ -50,8 +50,8 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
         :return: list of tuple(x,y)
         """
 
-        # Flatten into 1D array.
-        mask_1d = self.mask.flatten()
+        # Flatten into 1D array, fortran style, which is VERTICALLY based!
+        mask_1d = self.mask.flatten(order='F')
 
         # Do check a few simple assumptions about values.
         if self.mask_value_higher:
@@ -88,13 +88,14 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
         for index, element in enumerate(boundaries_mask):
             # Element: is the place where 1 start
             run = element
-            self.list_order.append(run)
+            # This is used to correct a bug where an extra row&column seems to have been encoded.
+            self.list_order.append(run - 257)
 
             # Length is the differences between where 0 starts and where proceeding 0 starts.
             length = boundaries_background[index] - element
             self.list_length.append(length)
 
-            self.list_order_length.append((run, length))
+            self.list_order_length.append((run - 257, length))
 
 if __name__ == "__main__":
     alpha = RLE_encoding(np.array([1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0]))
