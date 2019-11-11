@@ -6,13 +6,14 @@ from collections import namedtuple
 # This is a specialized module to make it less PITA.
 #
 
+
 class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
     def __init__(
         self,
         mask: np.array,  # a 2d nmumpy matrix array
         mask_value=1,  # default assume the mask is 0 for background and 1 for mask value.
         background_value=0,  # default assume the mask is 0 for background and 1 for mask value.
-        mask_value_higher=True
+        mask_value_higher=True,
     ):
         """
         Establish the assumption before encoding.
@@ -51,7 +52,7 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
         """
 
         # Flatten into 1D array, fortran style, which is VERTICALLY based!
-        mask_1d = self.mask.flatten(order='F')
+        mask_1d = self.mask.flatten(order="F")
 
         # Do check a few simple assumptions about values.
         if self.mask_value_higher:
@@ -62,7 +63,9 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
             assert min(mask_1d) >= self.mask_value
 
         # Append 0 to both end to accommodate the upcoming shift.
-        mask_1d_padded_both = np.concatenate([[self.background_value], mask_1d, [self.background_value]])
+        mask_1d_padded_both = np.concatenate(
+            [[self.background_value], mask_1d, [self.background_value]]
+        )
         mask_1d_padded_left = mask_1d_padded_both[:-1]  # skipped right pad
         mask_1d_padded_right = mask_1d_padded_both[1:]  # skipped left pad
 
@@ -82,7 +85,6 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
         # every other element is where 1 starts (since they are continuous).
         boundaries_mask = boundaries[::2]
 
-
         run_length = []
         # Compute the length part before adding Run/Length couple to the output list.
         for index, element in enumerate(boundaries_mask):
@@ -96,6 +98,7 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
             self.list_length.append(length)
 
             self.list_order_length.append((run - 257, length))
+
 
 if __name__ == "__main__":
     alpha = RLE_encoding(np.array([1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0]))

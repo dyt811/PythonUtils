@@ -10,6 +10,7 @@ def sleep(s: int = 0, m: int = 0, h: int = 0):
     :return:
     """
     import time
+
     time.sleep(s + m * 60 + h * 3600)
 
 
@@ -20,10 +21,10 @@ def sleep_until(destination_time: timeobject):
     :return:
     """
     import time
+
     sleep_duration = calculate_countdown(
         datetime.now(), destination_time
     ).total_seconds()
-
 
     time.sleep(sleep_duration)
 
