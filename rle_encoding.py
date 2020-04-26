@@ -11,17 +11,17 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
     def __init__(
         self,
         mask: np.array,  # a 2d nmumpy matrix array
-        mask_value=1,  # default assume the mask is 0 for background and 1 for mask value.
+        mask_value=255,  # default assume the mask is 0 for background and 1 for mask value.
         background_value=0,  # default assume the mask is 0 for background and 1 for mask value.
         mask_value_higher=True,
     ):
         """
         Establish the assumption before encoding.
-        :param order: the Nth pixel count.
-        :param length: the number of pixels to include (inclusive both ends)
-        :param x_max: max x values (items per row)
-        :param y_max: max y values (number of rows)
-        :param y_encoded_first:
+        :param mask: the Nth pixel count.
+        THIS should be a BINARY image!
+        :param mask_value: pixel intensity of mask
+        :param background_value: intensity of background non-mask values.
+        :param mask_value_higher: this is used to infer directions. TRUE if mask value > background values
         """
         self.mask = mask
 
@@ -52,7 +52,7 @@ class RLE_encoding:  # Rune Length Encoding process from a mask to RLE
         """
 
         # Flatten into 1D array, fortran style, which is VERTICALLY based!
-        mask_1d = self.mask.flatten(order="F")
+        mask_1d = self.mask.flatten(order="C")
 
         # Do check a few simple assumptions about values.
         if self.mask_value_higher:
