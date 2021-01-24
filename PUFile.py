@@ -86,7 +86,7 @@ def duplicates_into_folders(filelist, output_folder, iterations):
     :param iterations:
     :return:
     """
-    from folder import recursive_list
+    from PUFolder import recursive_list
 
     logger.debug(f"Duplication files for {str(iterations)} iteraitons.")
     # Duplicate the folder x times
