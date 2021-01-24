@@ -1,30 +1,16 @@
 from datetime import datetime, timedelta, time as timeobject
 
 
-def sleep(s: int = 0, m: int = 0, h: int = 0):
-    """
-    Sleep for an extended time.
-    :param s:
-    :param m:
-    :param h:
-    :return:
-    """
-    import time
-
-    time.sleep(s + m * 60 + h * 3600)
-
-
 def sleep_until(destination_time: timeobject):
     """
     Sleep until particular time of the date.
     :param destination_time:
     :return:
     """
-    import time
-
     sleep_duration = calculate_countdown(
         datetime.now(), destination_time
     ).total_seconds()
+    import time
 
     time.sleep(sleep_duration)
 
